@@ -1,0 +1,3 @@
+{"host":"example.com","port":443,"tcp_ok":true,"used_tls":true,"tls_ok":true,"banner":"HTTP/1.1 200 OK","cert_subject":"/CN=example.com","cert_issuer":"/C=US/O=Example CA","error":""}
+{"host":"example.com","port":22,"tcp_ok":true,"used_tls":false,"tls_ok":false,"banner":"SSH-2.0-OpenSSH_9.6","cert_subject":"","cert_issuer":"","error":""}
+{"host":"example.com","port":25,"tcp_ok":false,"used_tls":false,"tls_ok":false,"banner":"","cert_subject":"","cert_issuer":"","error":"connect timeout"}

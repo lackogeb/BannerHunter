@@ -1,0 +1,5 @@
+example.com:443  OPEN  TLS  HTTP/1.1 200 OK
+  cert_subject: /CN=example.com
+  cert_issuer : /C=US/O=Example CA
+example.com:22  OPEN  PLAIN  SSH-2.0-OpenSSH_9.6
+example.com:25  CLOSED (connect timeout)

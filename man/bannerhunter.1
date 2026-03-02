@@ -1,0 +1,61 @@
+.TH BANNERHUNTER 1 "March 2026" "BannerHunter" "User Commands"
+.SH NAME
+bannerhunter \- safety-first single-target banner & service probe
+.SH SYNOPSIS
+.B bannerhunter
+.B --i-have-permission
+.B -h
+.I host
+.RI [ options ]
+.SH DESCRIPTION
+BannerHunter connects to a single authorized target host and attempts to read service banners on specified ports.
+It can optionally negotiate TLS, send a CRLF to trigger banners, and probe HTTP via a HEAD request.
+.SH REQUIRED
+.TP
+.B --i-have-permission
+Acknowledge explicit authorization to test the target.
+.TP
+.BR -h ", " --host " " host
+Target hostname or IP.
+.SH PORTS
+.TP
+.BR -p ", " --port " " n
+Scan a port (repeatable).
+.TP
+.BR -P ", " --ports " " spec
+Comma list and ranges (e.g. 80,443,8000-8100).
+.TP
+.B --default-ports
+Scan a curated default set of ports.
+.SH TLS
+.TP
+.B --tls
+TLS only.
+.TP
+.B --no-tls
+Plain TCP only.
+.TP
+.B --sni
+Override TLS SNI.
+.TP
+.B --show-cert
+Print TLS cert subject and issuer.
+.SH PROBING
+.TP
+.B --probe-http
+Send HTTP HEAD request after connect.
+.TP
+.B --send-newline
+Send CRLF after connect.
+.SH OUTPUT
+.TP
+.BR -o ", " --output " " file
+Append output to file.
+.TP
+.B --jsonl
+Emit JSON Lines.
+.TP
+.BR -q ", " --quiet
+Reduce non-result output.
+.SH SEE ALSO
+README.md, docs/USAGE.md

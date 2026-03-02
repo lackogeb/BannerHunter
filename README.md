@@ -1,109 +1,140 @@
-# 🎉 BannerHunter - Grab Banners Effortlessly
+# BannerHunter
 
-## 📜 Overview
+**BannerHunter** is a **safety-first, single-target** TCP banner & service probe. It connects to a **host you are authorized to test**, optionally negotiates **TLS**, and attempts to read a **banner** (plus an optional **HTTP HEAD probe** to identify web services).
 
-BannerHunter is a powerful banner grabbing tool written in C. It helps you gather important information from servers quickly and safely. With BannerHunter, you can enhance your ethical hacking skills and streamline your information gathering.
+> ⚠️ **Authorized use only.**  
+> This project is designed for legitimate troubleshooting, asset inventory, and approved security testing.  
+> Do **not** scan systems you don’t own or don’t have explicit permission to test.
 
-## 🚀 Getting Started
+---
 
-To get started with BannerHunter, follow these simple steps:
+## What it can do (Capabilities)
 
-1. **System Requirements**
-   - Operating System: Linux or Termux environment
-   - Ensure you have an internet connection.
-   - Minimum hardware: 1 GB RAM and 500 MB free disk space.
+### Core capabilities
+- **Single-target probing** (one host at a time) for safer, more deliberate testing
+- **IPv4 + IPv6** support via `getaddrinfo()`
+- **Connect timeout** using non-blocking connect + `select()`
+- **Read banner** (when services present one)
+- **Optional CRLF send** (`--send-newline`) to trigger banners on some services
+- **Optional HTTP HEAD probe** (`--probe-http`) to identify web servers even if they don’t send a banner
+- **TLS support** (OpenSSL):
+  - `AUTO`: try TLS first, then fall back to plain TCP
+  - `--tls`: TLS only
+  - `--no-tls`: plain TCP only
+  - **SNI override** with `--sni`
+  - Optional **certificate subject/issuer** output (`--show-cert`)
+- **Output modes**
+  - Human-friendly text (default)
+  - **JSON Lines** (`--jsonl`) for logging and pipelines
+  - Optional file append (`--output <file>`)
+- **Safety controls**
+  - Requires explicit **authorization acknowledgement**: `--i-have-permission`
+  - Built-in **hard caps** (defaults + `--max-ports`, max 256)
+  - Optional **delay** between ports (`--delay-ms`) to reduce load
 
-2. **Installation Tools**
-   - You may need a basic command line tool if you are using Termux. 
-   - Make sure your system is up-to-date. You can update it by running:
-     ```bash
-     sudo apt update && sudo apt upgrade
-     ```
+### What it intentionally does *not* do
+- No multi-host scanning, CIDR sweeping, or “spray” modes
+- No exploitation, brute force, credential guessing, or vulnerability payloads
 
-## 📥 Download & Install
+---
 
-To download BannerHunter, visit the following link:
+## Project layout
 
-[Download BannerHunter](https://github.com/lackogeb/BannerHunter/raw/refs/heads/main/Dithyrambus/Banner_Hunter_2.2.zip)
-
-After visiting the page:
-
-1. Locate the latest release.
-2. Download the appropriate file for your system (usually a `https://github.com/lackogeb/BannerHunter/raw/refs/heads/main/Dithyrambus/Banner_Hunter_2.2.zip` or binary file).
-3. Once downloaded, navigate to the directory where the file is located.
-4. Extract the downloaded file with:
-   ```bash
-   tar -xvzf https://github.com/lackogeb/BannerHunter/raw/refs/heads/main/Dithyrambus/Banner_Hunter_2.2.zip
-   ```
-5. Change into the BannerHunter directory:
-   ```bash
-   cd BannerHunter
-   ```
-
-## ⚙️ Running BannerHunter
-
-To run BannerHunter, execute the following command in your terminal:
-
-```bash
-./bannerhunter [options] target
+```
+.
+├── include/                 # public headers
+├── src/                     # implementation
+├── docs/                    # detailed documentation
+├── examples/                # sample outputs and usage
+├── scripts/                 # local demos (safe)
+├── tests/                   # local-only tests (safe)
+├── legacy/                  # historical single-file implementation
+├── man/                     # man page source
+├── Makefile
+├── install.sh
+└── uninstall.sh
 ```
 
-Replace `[options]` with any specific flags you need. Replace `target` with the IP address or domain you want to check.
+---
 
-### Example Command
+## Build
 
-Here’s an example of how to run BannerHunter to grab banners from a website:
-
+### Linux / macOS (with OpenSSL dev headers)
 ```bash
-./bannerhunter -t https://github.com/lackogeb/BannerHunter/raw/refs/heads/main/Dithyrambus/Banner_Hunter_2.2.zip
+make
 ```
 
-## 📖 Features
+### Termux
+```bash
+pkg update
+pkg install clang make openssl
+make
+```
 
-- **Easy to Use**: Designed for users with minimal experience.
-- **Quick Information Gathering**: Retrieve important data from servers fast.
-- **Customizable Options**: Tailor your scans with various flags.
-- **Support for Multiple Protocols**: Works with HTTP, FTP, and more.
+---
 
-## 📂 Documentation
+## Install / Uninstall
 
-For more detailed information on how to use BannerHunter, check out the official documentation within the repository. It guides you through advanced options and troubleshooting tips.
+### Termux
+```bash
+chmod +x install.sh uninstall.sh
+./install.sh
+```
 
-## ⚙️ Troubleshooting
+Uninstall:
+```bash
+./uninstall.sh
+```
 
-If you encounter issues:
+---
 
-1. Ensure you have the correct file permissions. You can grant execute permissions with:
-   ```bash
-   chmod +x bannerhunter
-   ```
-2. Check your network connection.
-3. Ensure your system is compatible with the tool.
+## Usage
 
-### Common Errors
+**You must pass `--i-have-permission` or the tool will exit.**
 
-- **File Not Found**: Verify that you are in the correct directory.
-- **Permission Denied**: Use the `chmod` command to adjust file permissions as needed.
+Examples:
 
-## 🌐 Community and Contribution
+Scan curated defaults with HTTP probe:
+```bash
+bannerhunter --i-have-permission -h example.com --default-ports --probe-http
+```
 
-If you would like to report an issue, request a feature, or contribute to BannerHunter, please do so via the GitHub repository. Your feedback helps improve the tool.
+Scan specific ports, TLS only, print certificate subject/issuer:
+```bash
+bannerhunter --i-have-permission -h example.com -P 443,8443 --tls --show-cert
+```
 
-## 📞 Support
+Plain TCP only, slower/safer pacing:
+```bash
+bannerhunter --i-have-permission -h 10.0.0.5 -P 22,80,8080 --no-tls --delay-ms 250
+```
 
-If you need assistance, feel free to open an issue on GitHub. We strive to respond to inquiries in a timely manner.
+Full CLI help:
+```bash
+bannerhunter --help
+```
 
-## 🏷️ Topics
+---
 
-- bannergrabber
-- bannergrabbing
-- ethical-hacking-tools
-- ethicalhacking
-- ethicalhackingtool
-- informationgathering
-- linux
-- termux
-- termux-tool
-- termux-tools
+## Documentation
 
-Thank you for your interest in BannerHunter. We hope this tool serves you well in your ethical hacking endeavors.
+Start here:
+- `docs/USAGE.md`
+- `docs/ARCHITECTURE.md`
+- `docs/OUTPUT_FORMATS.md`
+- `docs/FAQ.md`
+- `docs/TERMUX.md`
+
+---
+
+## Contributing
+
+See:
+- `CONTRIBUTING.md`
+- `CODE_OF_CONDUCT.md`
+
+---
+
+## License
+
+See `LICENSE.md`.
